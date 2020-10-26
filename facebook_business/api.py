@@ -107,8 +107,10 @@ class FacebookResponse(object):
             if isinstance(json_body, collections_abc.Mapping):
                 return json_body.get('success', False)
             # API can return a success 200 when service unavailable occurs
-            return 'Service Unavailable' not in json_body
-        elif self._http_status == http_client.NOT_MODIFIED:
+            if 'Service Unavailable' in json_body:
+                return False
+
+        if self._http_status == http_client.NOT_MODIFIED:
             # ETAG Hit
             return True
         elif self._http_status == http_client.OK:
