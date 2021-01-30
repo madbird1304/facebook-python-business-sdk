@@ -18,23 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.comment import Comment
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
+id = '<PAGE_POST_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
 ]
 params = {
-  'name': 'Sample Creative',
-  'object_story_spec': {'page_id':'<pageID>','link_data':{'image_hash':'<imageHash>','link':'https:\/\/facebook.com\/<pageID>','message':'try it out'}},
 }
-print AdAccount(id).create_ad_creative(
+print PagePost(id).get_comments(
   fields=fields,
   params=params,
 )

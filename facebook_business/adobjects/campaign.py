@@ -46,6 +46,7 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
@@ -60,6 +61,7 @@ class Campaign(
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
         id = 'id'
+        is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
         lifetime_budget = 'lifetime_budget'
@@ -68,6 +70,7 @@ class Campaign(
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
+        smart_promotion_type = 'smart_promotion_type'
         source_campaign = 'source_campaign'
         source_campaign_id = 'source_campaign_id'
         special_ad_categories = 'special_ad_categories'
@@ -88,7 +91,6 @@ class Campaign(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -145,12 +147,17 @@ class Campaign(
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_leads = 'OUTCOME_LEADS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
         store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
+
+    class SmartPromotionType:
+        guided_creation = 'GUIDED_CREATION'
+        smart_app_promotion = 'SMART_APP_PROMOTION'
 
     class SpecialAdCategories:
         credit = 'CREDIT'
@@ -535,12 +542,14 @@ class Campaign(
             'budget_rebalance_flag': 'bool',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
             'name': 'string',
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'smart_promotion_type': 'smart_promotion_type_enum',
             'special_ad_categories': 'list<special_ad_categories_enum>',
             'special_ad_category': 'special_ad_category_enum',
             'special_ad_category_country': 'list<special_ad_category_country_enum>',
@@ -552,6 +561,7 @@ class Campaign(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'smart_promotion_type_enum': Campaign.SmartPromotionType.__dict__.values(),
             'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
             'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
             'special_ad_category_country_enum': Campaign.SpecialAdCategoryCountry.__dict__.values(),
@@ -887,6 +897,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -947,6 +958,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -986,6 +998,7 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
+        'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
@@ -1000,6 +1013,7 @@ class Campaign(
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',
         'lifetime_budget': 'string',
@@ -1008,6 +1022,7 @@ class Campaign(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
+        'smart_promotion_type': 'string',
         'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
         'special_ad_categories': 'list<string>',
@@ -1034,6 +1049,7 @@ class Campaign(
         field_enum_info['DatePreset'] = Campaign.DatePreset.__dict__.values()
         field_enum_info['ExecutionOptions'] = Campaign.ExecutionOptions.__dict__.values()
         field_enum_info['Objective'] = Campaign.Objective.__dict__.values()
+        field_enum_info['SmartPromotionType'] = Campaign.SmartPromotionType.__dict__.values()
         field_enum_info['SpecialAdCategories'] = Campaign.SpecialAdCategories.__dict__.values()
         field_enum_info['SpecialAdCategoryCountry'] = Campaign.SpecialAdCategoryCountry.__dict__.values()
         field_enum_info['Operator'] = Campaign.Operator.__dict__.values()

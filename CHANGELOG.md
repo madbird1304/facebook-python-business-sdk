@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v9.0.1
+
+
+### Added
+- `action_source` field to Event for Conversions API.
+
+### Fixed
+- Enum compatibility for Python 2.7
+
 ## v8.0.5
+
+### Added
+- `delivery_category` field to Content for Conversions API.
 
 ### Added
 - Added HttpServiceInterface to enable the default request object to be overridden by a user-defined HTTP Request Service object. Available for Conversions API create event requests.
@@ -89,3 +101,4 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
+

@@ -64,6 +64,7 @@ class Page(
         checkins = 'checkins'
         company_overview = 'company_overview'
         connected_instagram_account = 'connected_instagram_account'
+        connected_page_backed_instagram_account = 'connected_page_backed_instagram_account'
         contact_address = 'contact_address'
         copyright_whitelisted_ig_partners = 'copyright_whitelisted_ig_partners'
         country_page_likes = 'country_page_likes'
@@ -274,7 +275,6 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
-        profile_plus_live_stream_moderation = 'PROFILE_PLUS_LIVE_STREAM_MODERATION'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
@@ -297,7 +297,6 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
-        profile_plus_live_stream_moderation = 'PROFILE_PLUS_LIVE_STREAM_MODERATION'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
@@ -424,6 +423,7 @@ class Page(
         leadgen = 'leadgen'
         leadgen_fat = 'leadgen_fat'
         live_videos = 'live_videos'
+        local_delivery = 'local_delivery'
         location = 'location'
         mcom_invoice_change = 'mcom_invoice_change'
         members = 'members'
@@ -1197,37 +1197,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def delete_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/claimed_urls',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1246,37 +1215,6 @@ class Page(
             target_class=URL,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=URL, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_claimed_url(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/claimed_urls',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2615,7 +2553,6 @@ class Page(
             'location': 'Object',
             'location_page_id': 'string',
             'old_store_number': 'unsigned int',
-            'page_username': 'string',
             'permanently_closed': 'bool',
             'phone': 'string',
             'pickup_options': 'list<pickup_options_enum>',
@@ -2825,37 +2762,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_messenger_ads_page_welcome_messages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.messengerdestinationpagewelcomemessage import MessengerDestinationPageWelcomeMessage
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/messenger_ads_page_welcome_messages',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MessengerDestinationPageWelcomeMessage,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=MessengerDestinationPageWelcomeMessage, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_messenger_profile(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2873,6 +2779,7 @@ class Page(
                 'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'PLATFORM',
+                'SUBJECT_TO_NEW_EU_PRIVACY_RULES',
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
             ],
@@ -3200,6 +3107,39 @@ class Page(
             node_id=self['id'],
             method='POST',
             endpoint='/pass_thread_control',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_pass_thread_metadatum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'metadata': 'string',
+            'recipient': 'Object',
+            'target_app_id': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/pass_thread_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Page,
@@ -3619,6 +3559,37 @@ class Page(
             target_class=Recommendation,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Recommendation, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_release_thread_control(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'recipient': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/release_thread_control',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4177,7 +4148,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.eventtour import EventTour
         param_types = {
         }
         enums = {
@@ -4188,9 +4158,9 @@ class Page(
             endpoint='/tours',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=EventTour,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventTour, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4250,6 +4220,39 @@ class Page(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/video_copyright_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoCopyrightRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoCopyrightRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_video_copyright_rule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.videocopyrightrule import VideoCopyrightRule
+        param_types = {
+            'condition_groups': 'list<Object>',
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/video_copyright_rules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -4457,6 +4460,7 @@ class Page(
             'slideshow_spec': 'map',
             'social_actions': 'bool',
             'source': 'string',
+            'source_instagram_media_id': 'string',
             'specified_dialect': 'string',
             'spherical': 'bool',
             'sponsor_id': 'string',
@@ -4568,6 +4572,7 @@ class Page(
         'checkins': 'unsigned int',
         'company_overview': 'string',
         'connected_instagram_account': 'IGUser',
+        'connected_page_backed_instagram_account': 'IGUser',
         'contact_address': 'MailingAddress',
         'copyright_whitelisted_ig_partners': 'list<string>',
         'country_page_likes': 'unsigned int',

@@ -47,7 +47,6 @@ class IGUser(
         follows_count = 'follows_count'
         id = 'id'
         ig_id = 'ig_id'
-        is_ig_shopping_seller_policy_enabled = 'is_ig_shopping_seller_policy_enabled'
         media_count = 'media_count'
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
@@ -62,6 +61,7 @@ class IGUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'adgroup_id': 'string',
         }
         enums = {
         }
@@ -360,7 +360,6 @@ class IGUser(
         'follows_count': 'int',
         'id': 'string',
         'ig_id': 'int',
-        'is_ig_shopping_seller_policy_enabled': 'bool',
         'media_count': 'int',
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',
